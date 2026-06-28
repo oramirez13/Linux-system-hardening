@@ -1,47 +1,53 @@
 # System Hardening
 
-Capturas de pantalla y documento sobre hardening de sistemas Linux.
+Linux system's hardening - Arch Linux edition
 
-## Contenido
+## Tools used
 
-### PDF
+### Lynis
 
-| Archivo | Descripcion |
-|---------|-------------|
-| `linux_hardening_report.pdf` | Reporte de hardening de Linux (5 paginas) |
-
-### Imagenes
-
-#### Lynis
+Security auditing and hardening tool for Unix/Linux systems. Performs over 260 automated tests that evaluate system configuration, permissions, and active services, and generates a hardening score. The screenshots show a score of 71-72 out of 100, with the firewall, intrusion detection software, and malware scanner detected as active.
 
 ![Lynis 01](lynis_01.png)
-*Escaneo con Lynis - resultados de auditoria de seguridad (1920x1080)*
-
 ![Lynis 02](lynis_02.png)
-*Escaneo con Lynis - resultados de auditoria de seguridad (1920x1080)*
-
 ![Lynis 03](lynis_03.png)
-*Escaneo con Lynis - resultados de auditoria de seguridad (1920x975)*
 
-#### auditctl
+### UFW
 
-![auditctl 01](auditctl_01.png)
-*Configuracion de auditctl (auditd) para monitoreo del sistema (1920x1080)*
-
-#### rkhunter
-
-![rkhunter 01](rkhunter_01.png)
-*Escaneo con rkhunter - deteccion de rootkits (1920x1080)*
-
-#### UFW y Fail2ban
+Simple firewall. Simplified interface for iptables. The visible configuration denies all incoming traffic by default and allows SSH only from the local network.
 
 ![ufw_fail2ban 01](ufw_fail2ban_01.png)
-*Configuracion de UFW y Fail2ban para proteccion del firewall (1920x646)*
 
-## Herramientas utilizadas
+### Fail2ban
 
-- **Lynis**: Escaner de auditoria de seguridad para sistemas Unix/Linux
-- **auditctl**: Herramienta de linea de comandos para configurar reglas de auditd
-- **rkhunter**: Escaner de rootkits para detectar malware y amenazas
-- **UFW**: Uncomplicated Firewall - interfaz simplificada para iptables
-- **Fail2ban**: Sistema de prevencion de intrusiones que bloquea IPs maliciosas
+Intrusion prevention tool. Monitors system logs and blocks IPs that make too many failed authentication attempts. In the screenshot, it is active with a cage configured for SSH, with no active locks at that time.
+
+*(Incluido en la captura de UFW)*
+
+### rkhunter
+
+Rootkit Hunter. A scanner that searches for rootkits, backdoors, and potential local vulnerabilities. It checks system file properties and signatures of known rootkits. The screenshot shows 496 rootkits checked, with none found, although it reports 44 suspicious files requiring manual review.
+
+![rkhunter 01](rkhunter_01.png)
+
+### ClamAV
+
+Open-source antivirus for Linux. The command:
+
+```bash
+clamscan -r /home/orami --infected
+```
+
+recursively scans the home directory, displaying only infected files.
+
+### auditctl / auditd
+
+Linux kernel auditing daemon. Logs system events such as binary execution, file access, and system calls. The rule:
+
+```bash
+-a always,exit -F arch=b64 -S execve -F key=exec_log
+```
+
+logs the execution of every process on the system.
+
+![auditctl 01](auditctl_01.png)
