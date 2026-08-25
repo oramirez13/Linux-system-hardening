@@ -22,7 +22,7 @@ Simple firewall. Simplified interface for iptables. The visible configuration de
 
 Intrusion prevention tool. Monitors system logs and blocks IPs that make too many failed authentication attempts. In the screenshot, it is active with a cage configured for SSH, with no active locks at that time.
 
-*(Incluido en la captura de UFW)*
+*(Included in the UFW screenshot)*
 
 ### rkhunter
 
