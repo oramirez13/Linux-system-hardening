@@ -35,7 +35,7 @@ Rootkit Hunter. A scanner that searches for rootkits, backdoors, and potential l
 Open-source antivirus for Linux. The command:
 
 ```bash
-clamscan -r /home/orami --infected
+clamscan -r $HOME --infected
 ```
 
 recursively scans the home directory, displaying only infected files.
